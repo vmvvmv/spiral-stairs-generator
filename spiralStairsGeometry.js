@@ -21,10 +21,10 @@ class ThreeJSStairs {
 
         var addTopFace = function ( i, x1, x2, x3, z1, z2, z3, height) {
 
-            vertices.push( new THREE.Vector3( x1, z1, height) );
-            vertices.push( new THREE.Vector3( x2, z2, height) );
-            vertices.push( new THREE.Vector3( x3, z3, height) );
-            vertices.push( new THREE.Vector3( x4, z4, height) );
+            vertices.push( new THREE.Vector3( x1, height, z1) );
+            vertices.push( new THREE.Vector3( x2, height, z2) );
+            vertices.push( new THREE.Vector3( x3, height, z3) );
+            vertices.push( new THREE.Vector3( x4, height, z4) );
 
             addBuffVertice( i );
             addBuffVertice( i + 1 );

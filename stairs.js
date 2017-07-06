@@ -21,9 +21,13 @@ dirLight.color.setHSL( 0.1, 1, 0.95 );
 dirLight.position.set( -100, 175, 100 );
 dirLight.position.multiplyScalar( 50 );
 scene.add( dirLight );
-
 scene.add( light );
 scene.add( light2 );
+
+//helper
+var axisHelper = new THREE.AxisHelper( 50 );
+//axisHelper.position.add(basePoint);
+scene.add( axisHelper )
 
 var controls = new OrbitControls(camera);
 
@@ -65,6 +69,8 @@ var drawStairs = function () {
 
     stairs.name = "stairs";
     scene.add( stairs );
+
+    window.stair = stairs;
 
     windowHalfX = window.innerWidth / 2;
     windowHalfY = window.innerHeight / 2;
