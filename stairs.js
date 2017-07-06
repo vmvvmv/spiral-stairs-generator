@@ -1,17 +1,26 @@
 var canvas = document.getElementById('content');
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera( 75, window.innerWidth/window.innerHeight, 0.1, 10000 );
-var renderer = new THREE.WebGLRenderer({ clearColor: 0xff0000, clearAlpha: 1 });
+var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+camera.position.z = 250;
+
+var renderer = new THREE.WebGLRenderer();
 
 var inputContainer = document.getElementById('input-container');
 
 renderer.setSize( 800, 800 );
+renderer.setClearColor( 0x494949, 1 );
 camera.position.z = 5;
 
 canvas.appendChild( renderer.domElement );
 
 var light2 = new THREE.HemisphereLight( 0xffffbb, 0x080820, 1 );
 var light = new THREE.AmbientLight( 0xFFFFFF ); // soft white light
+
+var dirLight = new THREE.DirectionalLight( 0xffffff, 1 );
+dirLight.color.setHSL( 0.1, 1, 0.95 );
+dirLight.position.set( -100, 175, 100 );
+dirLight.position.multiplyScalar( 50 );
+scene.add( dirLight );
 
 scene.add( light );
 scene.add( light2 );
@@ -38,7 +47,7 @@ var drawStairs = function () {
 
     }
 
-    var defaultMat = new THREE.MeshBasicMaterial( { color : 0x00cc00, side: THREE.DoubleSide } );
+    var defaultMat = new THREE.MeshPhongMaterial( { color: 0xffffff, specular: 0xffffff, shininess: 20, morphTargets: true, vertexColors: THREE.FaceColors, shading: THREE.FlatShading, side: THREE.DoubleSide } );
 
     var rMin = +document.getElementById( 'minRadius' ).value;
     var rMax = +document.getElementById( 'maxRadius' ).value;

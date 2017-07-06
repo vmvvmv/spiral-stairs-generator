@@ -5,11 +5,6 @@ class ThreeJSStairs {
         this.bufferGeometry = new THREE.BufferGeometry();
         var alpha = Math.PI * 2 * periods / N;
 
-        var geometry = this.geometry;
-
-        var normal = new THREE.Vector3( 0, 1, 0 ); //optional
-        var color = new THREE.Color( 0xffaa00 ); //optional
-        var materialIndex = 0; //optional
 
         var bufferVertices = [];
         var vertices = [];
@@ -122,7 +117,7 @@ class ThreeJSStairs {
         }
 
         var verticesFloarArray = new Float32Array( bufferVertices );
-        this.bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( verticesFloarArray, 3 ) );
+        this.bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( verticesFloarArray, 3 ), true );
 
     }
 
