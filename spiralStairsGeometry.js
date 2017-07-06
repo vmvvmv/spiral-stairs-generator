@@ -2,7 +2,6 @@ class ThreeJSStairs {
 
     constructor( N, periods, rMin, rMax, stairsStep ) {
 
-        this.geometry = new THREE.Geometry();
         this.bufferGeometry = new THREE.BufferGeometry();
         var alpha = Math.PI * 2 * periods / N;
 
@@ -13,10 +12,11 @@ class ThreeJSStairs {
         var materialIndex = 0; //optional
 
         var bufferVertices = [];
+        var vertices = [];
 
         var addBuffVertice = function ( index ) {
 
-            var tempVertice = geometry.vertices[index];
+            var tempVertice = vertices[index];
 
             bufferVertices.push( tempVertice.x );
             bufferVertices.push( tempVertice.y );
@@ -26,13 +26,10 @@ class ThreeJSStairs {
 
         var addTopFace = function ( i, x1, x2, x3, z1, z2, z3, height) {
 
-            geometry.vertices.push( new THREE.Vector3( x1, z1, height) );
-            geometry.vertices.push( new THREE.Vector3( x2, z2, height) );
-            geometry.vertices.push( new THREE.Vector3( x3, z3, height) );
-            geometry.vertices.push( new THREE.Vector3( x4, z4, height) );
-
-            geometry.faces.push( new THREE.Face3( i, i+1, i+2, normal, color, materialIndex) );
-            geometry.faces.push( new THREE.Face3( i+2, i+3, i+1 , normal, color, materialIndex) );
+            vertices.push( new THREE.Vector3( x1, z1, height) );
+            vertices.push( new THREE.Vector3( x2, z2, height) );
+            vertices.push( new THREE.Vector3( x3, z3, height) );
+            vertices.push( new THREE.Vector3( x4, z4, height) );
 
             addBuffVertice( i );
             addBuffVertice( i + 1 );
@@ -41,14 +38,9 @@ class ThreeJSStairs {
             addBuffVertice( i + 3 );
             addBuffVertice( i + 1 );
 
-
-
         }
 
         var addSideTopFace = function ( i ) {
-
-            geometry.faces.push( new THREE.Face3( i, i + 2, i + 4, normal, color, materialIndex) );
-            geometry.faces.push( new THREE.Face3( i + 2, i + 4, i + 6, normal, color, materialIndex) );
 
             addBuffVertice( i );
             addBuffVertice( i + 2 );
@@ -62,9 +54,6 @@ class ThreeJSStairs {
 
         var addSideBottom = function ( i ) {
 
-            geometry.faces.push( new THREE.Face3( i + 1, i + 3, i + 5, normal, color, materialIndex) );
-            geometry.faces.push( new THREE.Face3( i + 5, i + 3, i + 7, normal, color, materialIndex) );
-
             addBuffVertice( i + 1 );
             addBuffVertice( i + 3 );
             addBuffVertice( i + 5 );
@@ -76,9 +65,6 @@ class ThreeJSStairs {
 
         var addSideRight = function ( i ) {
 
-            geometry.faces.push( new THREE.Face3( i, i + 1, i + 4, normal, color, materialIndex) );
-            geometry.faces.push( new THREE.Face3( i + 4, i + 1, i + 5, normal, color, materialIndex) );
-
             addBuffVertice( i );
             addBuffVertice( i + 1 );
             addBuffVertice( i + 4 );
@@ -89,9 +75,6 @@ class ThreeJSStairs {
         }
 
         var addSideLeft = function ( i ) {
-
-            geometry.faces.push( new THREE.Face3( i + 2, i + 3, i + 6, normal, color, materialIndex) );
-            geometry.faces.push( new THREE.Face3( i + 3, i + 6, i + 7, normal, color, materialIndex) );
 
             addBuffVertice( i + 2 );
             addBuffVertice( i + 3 );
@@ -138,25 +121,9 @@ class ThreeJSStairs {
 
         }
 
-        // console.log( this.geometry );
-        // console.log( bufferVertices );
-        //var verticesFloarArray = new Float32Array( bufferVertices );
-        var standart = [
-	    -1.0, -1.0,  1.0,
-	     1.0, -1.0,  1.0,
-	     1.0,  1.0,  1.0,
-     
-	     1.0,  1.0,  1.0,
-	    -1.0,  1.0,  1.0,
-	    -1.0, -1.0,  1.0
-        ]
-
-        var verticesFloarArray = new Float32Array( standart );
-
+        var verticesFloarArray = new Float32Array( bufferVertices );
         this.bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( verticesFloarArray, 3 ) );
 
-        this.geometry.computeFaceNormals();
-        this.geometry.computeVertexNormals();
     }
 
 };

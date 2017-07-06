@@ -38,7 +38,7 @@ var drawStairs = function () {
 
     }
 
-    var defaultMat = new THREE.MeshStandardMaterial( { color : 0x00cc00, side: THREE.DoubleSide } );
+    var defaultMat = new THREE.MeshBasicMaterial( { color : 0x00cc00, side: THREE.DoubleSide } );
 
     var rMin = +document.getElementById( 'minRadius' ).value;
     var rMax = +document.getElementById( 'maxRadius' ).value;
@@ -57,18 +57,18 @@ var drawStairs = function () {
     stairs.name = "stairs";
     scene.add( stairs );
 
-    // windowHalfX = window.innerWidth / 2;
-    // windowHalfY = window.innerHeight / 2;
+    windowHalfX = window.innerWidth / 2;
+    windowHalfY = window.innerHeight / 2;
     
-    // mouseX = (event.clientX - windowHalfX) / 2;
-    // mouseY = (event.clientY - windowHalfY) / 2;
+    mouseX = (event.clientX - windowHalfX) / 2;
+    mouseY = (event.clientY - windowHalfY) / 2;
 
-    // camera.position.x += (mouseX - camera.position.x);
-    // camera.position.y += (-mouseY - camera.position.y);
+    camera.position.x += (mouseX - camera.position.x);
+    camera.position.y += (-mouseY - camera.position.y);
 
-    // camera.position = stairs.position;
+    camera.position = stairs.position;
 
-    // camera.lookAt(scene.position);
+    camera.lookAt(scene.position);
 
     animate();
 
