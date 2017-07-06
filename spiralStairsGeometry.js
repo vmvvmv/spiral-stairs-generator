@@ -3,6 +3,7 @@ class ThreeJSStairs {
     constructor( N, periods, rMin, rMax, stairsStep ) {
 
         this.geometry = new THREE.Geometry();
+        this.bufferGeometry = new THREE.BufferGeometry();
         var alpha = Math.PI * 2 * periods / N;
 
         var geometry = this.geometry;
@@ -10,6 +11,18 @@ class ThreeJSStairs {
         var normal = new THREE.Vector3( 0, 1, 0 ); //optional
         var color = new THREE.Color( 0xffaa00 ); //optional
         var materialIndex = 0; //optional
+
+        var bufferVertices = [];
+
+        var addBuffVertice = function ( index ) {
+
+            var tempVertice = geometry.vertices[index];
+
+            bufferVertices.push( tempVertice.x );
+            bufferVertices.push( tempVertice.y );
+            bufferVertices.push( tempVertice.z );
+
+        }
 
         var addTopFace = function ( i, x1, x2, x3, z1, z2, z3, height) {
 
@@ -21,12 +34,28 @@ class ThreeJSStairs {
             geometry.faces.push( new THREE.Face3( i, i+1, i+2, normal, color, materialIndex) );
             geometry.faces.push( new THREE.Face3( i+2, i+3, i+1 , normal, color, materialIndex) );
 
+            addBuffVertice( i );
+            addBuffVertice( i + 1 );
+            addBuffVertice( i + 2 );
+            addBuffVertice( i + 2 );
+            addBuffVertice( i + 3 );
+            addBuffVertice( i + 1 );
+
+
+
         }
 
         var addSideTopFace = function ( i ) {
 
             geometry.faces.push( new THREE.Face3( i, i + 2, i + 4, normal, color, materialIndex) );
             geometry.faces.push( new THREE.Face3( i + 2, i + 4, i + 6, normal, color, materialIndex) );
+
+            addBuffVertice( i );
+            addBuffVertice( i + 2 );
+            addBuffVertice( i + 4 );
+            addBuffVertice( i + 2 );
+            addBuffVertice( i + 4 );
+            addBuffVertice( i + 6 );
 
         }
 
@@ -36,6 +65,13 @@ class ThreeJSStairs {
             geometry.faces.push( new THREE.Face3( i + 1, i + 3, i + 5, normal, color, materialIndex) );
             geometry.faces.push( new THREE.Face3( i + 5, i + 3, i + 7, normal, color, materialIndex) );
 
+            addBuffVertice( i + 1 );
+            addBuffVertice( i + 3 );
+            addBuffVertice( i + 5 );
+            addBuffVertice( i + 5 );
+            addBuffVertice( i + 3 );
+            addBuffVertice( i + 7 );
+
         }
 
         var addSideRight = function ( i ) {
@@ -43,12 +79,26 @@ class ThreeJSStairs {
             geometry.faces.push( new THREE.Face3( i, i + 1, i + 4, normal, color, materialIndex) );
             geometry.faces.push( new THREE.Face3( i + 4, i + 1, i + 5, normal, color, materialIndex) );
 
+            addBuffVertice( i );
+            addBuffVertice( i + 1 );
+            addBuffVertice( i + 4 );
+            addBuffVertice( i + 4 );
+            addBuffVertice( i + 1 );
+            addBuffVertice( i + 5 );
+
         }
 
         var addSideLeft = function ( i ) {
 
             geometry.faces.push( new THREE.Face3( i + 2, i + 3, i + 6, normal, color, materialIndex) );
             geometry.faces.push( new THREE.Face3( i + 3, i + 6, i + 7, normal, color, materialIndex) );
+
+            addBuffVertice( i + 2 );
+            addBuffVertice( i + 3 );
+            addBuffVertice( i + 6 );
+            addBuffVertice( i + 3 );
+            addBuffVertice( i + 6 );
+            addBuffVertice( i + 7 );
 
         }
 
@@ -87,6 +137,23 @@ class ThreeJSStairs {
             help += 4;
 
         }
+
+        // console.log( this.geometry );
+        // console.log( bufferVertices );
+        //var verticesFloarArray = new Float32Array( bufferVertices );
+        var standart = [
+	    -1.0, -1.0,  1.0,
+	     1.0, -1.0,  1.0,
+	     1.0,  1.0,  1.0,
+     
+	     1.0,  1.0,  1.0,
+	    -1.0,  1.0,  1.0,
+	    -1.0, -1.0,  1.0
+        ]
+
+        var verticesFloarArray = new Float32Array( standart );
+
+        this.bufferGeometry.addAttribute( 'position', new THREE.BufferAttribute( verticesFloarArray, 3 ) );
 
         this.geometry.computeFaceNormals();
         this.geometry.computeVertexNormals();

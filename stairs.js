@@ -6,6 +6,7 @@ var renderer = new THREE.WebGLRenderer({ clearColor: 0xff0000, clearAlpha: 1 });
 var inputContainer = document.getElementById('input-container');
 
 renderer.setSize( 800, 800 );
+camera.position.z = 5;
 
 canvas.appendChild( renderer.domElement );
 
@@ -48,7 +49,7 @@ var drawStairs = function () {
     var spiral = new ThreeJSStairs( N, periods, rMin, rMax, stairsStep );
 
     var stairs = new THREE.Object3D();
-    var base = new THREE.Mesh(spiral.geometry, defaultMat);
+    var base = new THREE.Mesh(spiral.bufferGeometry, defaultMat);
     base.name = "base";
 
     stairs.add(base);
@@ -56,18 +57,18 @@ var drawStairs = function () {
     stairs.name = "stairs";
     scene.add( stairs );
 
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
+    // windowHalfX = window.innerWidth / 2;
+    // windowHalfY = window.innerHeight / 2;
     
-    mouseX = (event.clientX - windowHalfX) / 2;
-    mouseY = (event.clientY - windowHalfY) / 2;
+    // mouseX = (event.clientX - windowHalfX) / 2;
+    // mouseY = (event.clientY - windowHalfY) / 2;
 
-    camera.position.x += (mouseX - camera.position.x);
-    camera.position.y += (-mouseY - camera.position.y);
+    // camera.position.x += (mouseX - camera.position.x);
+    // camera.position.y += (-mouseY - camera.position.y);
 
-    camera.position = stairs.position;
+    // camera.position = stairs.position;
 
-    camera.lookAt(scene.position);
+    // camera.lookAt(scene.position);
 
     animate();
 
